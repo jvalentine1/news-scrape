@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--Reset CSS CDN-->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <!--Bootstrap CDN-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!--Custom CSS CDN-->
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <title>Mongo Scraper</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <!--Nav Bar-->
+        <div class="row">
+            <div class="col-md-12 my-nav">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link active logo">News Scrape</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/scrape">Find News</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Saved News</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--Title-->
+        <div class="row">
+            <div class="col-md-12 title-center">
+                <h1 class="text-center pt-5 text-center">News Scrape</h1>
+            </div>
+        </div>
+        <div class="row">
+            <!--News Populate Div-->
+            <div class="col-md-12 pt-3" id="news"></div>
+        </div>
+        <div class="row">
+            <!--Comments Populate Div-->
+            <div class="col-md-12 pt-3" id="comments"></div>
+        </div>
+    </div>
+</body>
+<!--Jquery CDN-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!--scrape.js CDN-->
+<script type="text/javascript" src="./scrape.js"></script>
+
+</html>
