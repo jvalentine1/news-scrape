@@ -58,6 +58,8 @@ $(document).on("click", "#view-news", function() {
 
     modal.style.display = "none";
 
+    $("#scrape-btn").html("");
+
     $.getJSON("/news", function(data) {
         generateNews(data);
     });
@@ -71,22 +73,46 @@ function generateNews(data) {
         let savedArticle = data[i];
 
         let newsDiv = $("<div>");
-        newsDiv.addClass("col-md-12 pt-3");
+        newsDiv.addClass("col-md-12 pt-3 news-div");
 
         let newsTitle = $("<h1>");
+        newsTitle.addClass("news-title");
         newsTitle.text(savedArticle.title);
         newsDiv.append(newsTitle);
 
         let newsSummary = $("<h5>");
+        newsSummary.addClass("news-summary");
         newsSummary.text(savedArticle.summary);
-        newsDiv.append(newsTitle);
+        newsDiv.append(newsSummary);
 
         let newsLink = $("<a>");
-        newsLink.attr("href", "https://news.google.com" + savedArticle.link);
-        newsLink.html(savedArticle.link);
+        newsLink.attr("href", "https://www.usatoday.com" + savedArticle.link);
+        newsLink.attr("target", "_blank");
+        newsLink.html("https://www.usatoday.com/" + savedArticle.link);
         newsDiv.append(newsLink);
 
-        $("#news").prepend(newsDiv);
+        let br1 = $("<br>");
+        newsDiv.append(br1);
 
+        let br2 = $("<br>");
+        newsDiv.append(br2);
+
+        let commentBtn = $("<button>");
+        commentBtn.addClass("btn btn-primary");
+        commentBtn.attr("type", "button");
+        commentBtn.attr("id", "comment-news");
+        commentBtn.attr("value", savedArticle.id);
+        commentBtn.text("Comment");
+        newsDiv.append(commentBtn);
+
+        $("#news").prepend(newsDiv);
     }
 }
+
+
+//Save an article
+$(document).on("click", "#comment-news", function() {
+    let id = $(this).attr("value");
+    console.log(id);
+});
+

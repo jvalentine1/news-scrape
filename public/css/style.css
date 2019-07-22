@@ -43,3 +43,51 @@
       font-size:15px;
       
   }
+
+  .my-nav {
+      background-color: blue;
+      border-bottom: solid 1px black;
+  }
+
+  .logo {
+      color: black;
+      font-size: 25px;
+      font-weight: 600;
+  }
+
+  .nav-attr {
+      color: white;
+      padding:15px;
+  }
+
+  .title-center {
+      background-image: url(https://en.unesco.org/sites/default/files/styles/extra_large_1600x1600/public/banner_ifap_938x488.jpg?itok=2ZFwfeDI);
+      background-size: cover;
+      border-bottom: solid 1px black;
+  }
+
+  .page-title {
+      padding: 200px;
+      margin-top:90px;
+      font-size:60px;
+      color:rgb(255, 255, 255);
+  }
+
+.scrape-btn {
+    color: white;
+}
+
+.news-div {
+    border-bottom: solid 1px black;
+    padding:10px;
+}
+
+.news-title {
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.news-summary {
+    font-size: 15px;
+    font-family: 'Times New Roman', Times, serif;
+}
