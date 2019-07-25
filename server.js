@@ -3,6 +3,7 @@ var express = require("express");
 var mongoose = require("mongoose");
 var axios = require("axios");
 var cheerio = require("cheerio");
+var path = require("path");
 
 // models and port
 var db = require("./models");
@@ -19,6 +20,18 @@ app.use(express.static("public"));
 
 // Connect to the Mongo DB
 mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParser: true });
+
+//HTML Routes
+
+//Home page rout
+app.get("/", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/index.html"));
+  });
+
+// saved articles route
+app.get("/saved-articles", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/articles.html"));
+  });
 
 //API Routes
 
@@ -66,6 +79,25 @@ app.get("/news", function(req, res) {
 
         res.json(err);
     });
+});
+
+//Route that posts a user comment and stores it with the id of the corresponding news article
+app.post("/news/:id", function(req, res) {
+
+    db.Note.create(req.body)
+    .then(function(dbNote) {
+
+      return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
+    })
+    .then(function(dbArticle) {
+
+        res.json(dbArticle);
+    })
+    .catch(function(err) {
+
+        res.json(err);
+    });
+
 });
 
 //Port Listener

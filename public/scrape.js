@@ -8,6 +8,7 @@ $(document).on("click", "#news-scrape", function() {
 
 //generates modal and option to retrieve articles from mongoDB
 function generateModal(data) {
+    //Display the modal
     var modal = document.getElementById("myModal");
     var span = document.getElementsByClassName("close")[0];
 
@@ -15,9 +16,11 @@ function generateModal(data) {
 
     $(".modal-text").html("");
 
+    //generat modal html structure
     let modalDiv = $("<div>");
 
     let modalTitle = $("<h1>");
+    modalTitle.addClass("modal-message text-center");
     modalTitle.text(data);
     modalDiv.append(modalTitle);
 
@@ -25,6 +28,7 @@ function generateModal(data) {
     modalDiv.append(br1);
 
     let modalMessage = $("<h4>");
+    modalMessage.addClass("text-center");
     modalMessage.text("Click View To See The Latest News");
     modalDiv.append(modalMessage);
 
@@ -38,6 +42,7 @@ function generateModal(data) {
     viewBtn.text("View");
     modalDiv.append(viewBtn);
 
+    //append modal data
     $(".modal-text").append(modalDiv);
 
     span.onclick = function() {
@@ -74,6 +79,7 @@ function generateNews(data) {
 
         let newsDiv = $("<div>");
         newsDiv.addClass("col-md-12 pt-3 news-div");
+        newsDiv.attr("id", i);
 
         let newsTitle = $("<h1>");
         newsTitle.addClass("news-title");
@@ -97,11 +103,11 @@ function generateNews(data) {
         let br2 = $("<br>");
         newsDiv.append(br2);
 
-        let commentBtn = $("<button>");
+        var commentBtn = $("<button>");
         commentBtn.addClass("btn btn-primary");
         commentBtn.attr("type", "button");
         commentBtn.attr("id", "comment-news");
-        commentBtn.attr("value", savedArticle.id);
+        commentBtn.attr("data-id", savedArticle._id);
         commentBtn.text("Comment");
         newsDiv.append(commentBtn);
 
@@ -110,9 +116,59 @@ function generateNews(data) {
 }
 
 
-//Save an article
+//Comment on an article, this onclick function renders a text area to write and submit a comment
 $(document).on("click", "#comment-news", function() {
-    let id = $(this).attr("value");
+    let id = $(this).attr("data-id");
+    let divId = $(this).parent("div").attr("id");
     console.log(id);
+    console.log(divId);
+
+    $(this).detach();
+
+    $("#" + divId).append("<textarea id='body-input' name='body'></textarea>");
+    $("#" + divId).append("<br id='br'>")
+    $("#" + divId).append("<button type='submit' class='btn btn-primary' data-id=" + id + " id='comment-submit'>Submit</button>")
+    $("#" + divId).append("<button type='button' class='btn btn-primary mr-2 cancel-comment'>Cancel</button>");
+});
+
+// Submits the comment to the mongodb database along with the object_id of it's corresponding article
+$(document).on("click", "#comment-submit", function(e) {
+    e.preventDefault();
+
+    let divId = $(this).parent("div").attr("id");
+    let id = $(this).attr("data-id");
+    let comment = $("#body-input").val();
+    console.log(id);
+    console.log(comment);
+
+    $.ajax({
+        method: "POST",
+        url: "/news/" + id,
+        data: {
+
+          body: comment
+
+        }
+      }).then(function(data) {
+          console.log(data);
+      });
+
+    $("#body-input").detach();
+    $("#comment-submit").detach();
+    $(".cancel-comment").detach();
+    $("#br").detach();
+    $("#" + divId).append("<button type='button' class='btn btn-primary' id='comment-news' data-id=" + id + ">Comment</button");
+});
+
+//Cancels the request to comment on an article
+$(document).on("click", ".cancel-comment", function() {
+    let divId = $(this).parent("div").attr("id");
+    let id = $(this).attr("data-id");
+
+    $("#body-input").detach();
+    $("#comment-submit").detach();
+    $(".cancel-comment").detach();
+    $("#br").detach();
+    $("#" + divId).append("<button type='button' class='btn btn-primary' id='comment-news' data-id=" + id + ">Comment</button");
 });
 
