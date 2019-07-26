@@ -29,9 +29,10 @@ If the user wishes to delete a commented article field, they simply have to visi
 ## Future Development
 
 Features to be added in the future will include but are not limited to:
-        * User Authentication
-        * A window where the user can view comments left by other members
-        * Conditional database entries to avoid multiple identicle entries
+
+        1. User Authentication
+        1. A window where the user can view comments left by other members
+        1. Conditional database entries to avoid multiple identicle entries
 
 ## Setting Up Your Machine
 
