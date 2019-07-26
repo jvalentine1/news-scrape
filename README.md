@@ -31,8 +31,8 @@ If the user wishes to delete a commented article field, they simply have to visi
 Features to be added in the future will include but are not limited to:
 
         1. User Authentication
-        1. A window where the user can view comments left by other members
-        1. Conditional database entries to avoid multiple identicle entries
+        2. A window where the user can view comments left by other members
+        3. Conditional database entries to avoid multiple identicle entries
 
 ## Setting Up Your Machine
 
