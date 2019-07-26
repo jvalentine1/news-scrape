@@ -10,5 +10,8 @@ This application provides an environment for page visitors to not only recieve t
 
 ## How It Works!
 
-Upon load of the page, if the user has saved articles they will render in the content center. If the user has not previously scraped any articles they will be given a button option to find news from the web
+Upon load of the page, if the user has saved articles they will render in the content center. If the user has not previously scraped any articles, they will be given a button option to find news from the web
 
+![Home-Page](https://github.com/jvalentine1/news-scrape/blob/master/images/home-page-pic.png)
+
+Clicking the *Find News* button will then scrape up to ten articles and store them in Mongodb, after the content has been saved a modal will render notifying the user that the scrape has been complete.  
