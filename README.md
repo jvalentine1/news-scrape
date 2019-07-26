@@ -20,4 +20,8 @@ Clicking the *Find News* button will then scrape up to ten articles and store th
 
 If the user wishes to comment on an article, they simply have to click comment. Once they have entered their message in the text field they can click submit, which will populate the database with a new collection. Or, they can click cancel and the message will be discarded. *The user must have charecters in the input field or they will be notified of an invalid comment*
 
-![comment-render]()
+![comment-render](https://github.com/jvalentine1/news-scrape/blob/master/images/n-s-comment-gif.gif)
+
+If the user wishes to delete a commented article field, they simply have to visit the *Your Articles* section and click delete. The corresponding information will then be removed from the database.
+
+![delete-article]()
