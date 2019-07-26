@@ -24,13 +24,13 @@
             <div class="col-md-12 my-nav">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a class="nav-link active logo">News Scrape</a>
+                        <a class="nav-link active logo" href="/">News Scrape</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link nav-attr" href="#" id="news-scrape">Find News</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-attr" href="/saved-articles">Your Articles</a>
+                        <a class="nav-link nav-attr" href="/saved-articles" id="populate-news">Your Articles</a>
                     </li>
                 </ul>
             </div>
@@ -49,12 +49,15 @@
         </div>
     </div>
     <div class="container">
-        <div class="row" id="news">
-            <!--News Populate Div-->
-            <div class="col-md-12 pt-5" id="scrape-btn">
+        <div class="row">
+            <!--Scrape button-->
+            <div class="col-md-5"></div>
+            <div class="col-md-2 pt-5" id="scrape-btn">
                 <a class="btn btn-primary mx-auto scrape-btn" id="news-scrape">Find News</a>
             </div>
         </div>
+        <!--News Populate Div-->
+        <div class="row" id="news"></div>
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>

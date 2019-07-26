@@ -25,25 +25,24 @@ mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParser: true 
 
 //Home page rout
 app.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/index.html"));
+    res.sendFile(path.join(__dirname, "./public/index.html"));
   });
 
 // saved articles route
 app.get("/saved-articles", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/articles.html"));
+    res.sendFile(path.join(__dirname, "./public/articles.html"));
   });
 
 //API Routes
 
 //Route that scrapes USA today
 app.get("/scrape", function(req, res) {
-    console.log("SCRAPE TEST");
+    
     axios.get("https://www.usatoday.com/search/?q=articles").then(function(response) {
         var $ = cheerio.load(response.data);
 
-        
-
     $("div.gnt_se_tw").each(function(i, element) {
+    
         var result = {};
         if (i < 5) {
 
@@ -87,7 +86,7 @@ app.post("/news/:id", function(req, res) {
     db.Note.create(req.body)
     .then(function(dbNote) {
 
-      return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
+      return db.Article.findOneAndUpdate({ _id: req.params.id }, { comment: dbNote._id }, { new: true });
     })
     .then(function(dbArticle) {
 
@@ -98,6 +97,31 @@ app.post("/news/:id", function(req, res) {
         res.json(err);
     });
 
+});
+
+//Route that Grabs only the articles that the user has commented on
+app.get("/mynews", function(req, res) {
+    db.Article.find({})
+    .populate("comment")
+    .then(function(dbArticle) {
+
+        res.json(dbArticle);
+    })
+    .catch(function(err) {
+
+        res.json(err);
+    });
+});
+
+//deletes an article selected by the user
+app.delete("/delete/:id", function(req, res) {
+    db.Article.remove({_id: req.params.id})
+    .then(function(dbArticle) {
+        res.json(dbArticle);
+    })
+    .catch(function(err) {
+        res.json(err);
+    });
 });
 
 //Port Listener

@@ -72,7 +72,7 @@ $(document).on("click", "#view-news", function() {
 
 //Renders articles to page
 function generateNews(data) {
-    console.log(data);
+
     for (let i = 0; i < data.length; i++) {
         
         let savedArticle = data[i];
@@ -120,8 +120,6 @@ function generateNews(data) {
 $(document).on("click", "#comment-news", function() {
     let id = $(this).attr("data-id");
     let divId = $(this).parent("div").attr("id");
-    console.log(id);
-    console.log(divId);
 
     $(this).detach();
 
@@ -138,8 +136,6 @@ $(document).on("click", "#comment-submit", function(e) {
     let divId = $(this).parent("div").attr("id");
     let id = $(this).attr("data-id");
     let comment = $("#body-input").val();
-    console.log(id);
-    console.log(comment);
 
     $.ajax({
         method: "POST",
@@ -149,15 +145,15 @@ $(document).on("click", "#comment-submit", function(e) {
           body: comment
 
         }
-      }).then(function(data) {
+    }).then(function(data) {
           console.log(data);
-      });
 
-    $("#body-input").detach();
-    $("#comment-submit").detach();
-    $(".cancel-comment").detach();
-    $("#br").detach();
-    $("#" + divId).append("<button type='button' class='btn btn-primary' id='comment-news' data-id=" + id + ">Comment</button");
+        $("#body-input").detach();
+        $("#comment-submit").detach();
+        $(".cancel-comment").detach();
+        $("#br").detach();
+        $("#" + divId).append("<button type='button' class='btn btn-primary' id='comment-news' data-id=" + id + ">Comment</button");
+    });
 });
 
 //Cancels the request to comment on an article
@@ -171,4 +167,83 @@ $(document).on("click", ".cancel-comment", function() {
     $("#br").detach();
     $("#" + divId).append("<button type='button' class='btn btn-primary' id='comment-news' data-id=" + id + ">Comment</button");
 });
+
+//Funtion that retrieves any commented articles on load
+function populateNews() {
+
+    $(".my-articles").html("");
+
+    $.ajax({
+        method: "GET",
+        url: "/mynews"
+    }).then(function(data) {
+
+        for (let j = 0; j < data.length; j++) {
+            let myNews = data[j];
+
+            if (myNews.comment) {
+
+                let newsDiv = $("<div>");
+                newsDiv.addClass("col-md-12 pt-3 news-div");
+                newsDiv.attr("id", j);
+
+                let newsTitle = $("<h1>");
+                newsTitle.addClass("news-title");
+                newsTitle.text(myNews.title);
+                newsDiv.append(newsTitle);
+
+                let newsSummary = $("<h5>");
+                newsSummary.addClass("news-summary");
+                newsSummary.text(myNews.summary);
+                newsDiv.append(newsSummary);
+
+                let newsLink = $("<a>");
+                newsLink.attr("href", "https://www.usatoday.com" + myNews.link);
+                newsLink.attr("target", "_blank");
+                newsLink.html("https://www.usatoday.com/" + myNews.link);
+                newsDiv.append(newsLink);
+
+                let commentTitle = $("<h1>");
+                commentTitle.text("Comments:");
+                newsDiv.append(commentTitle);
+
+                let commentWrap = $("<ul>");
+
+                let commentBody = $("<li>");
+                commentBody.html(myNews.comment.body);
+                commentWrap.append(commentBody);
+
+                newsDiv.append(commentWrap);
+
+                let br1 = $("<br>");
+                newsDiv.append(br1);
+
+                var deleteBtn = $("<button>");
+                deleteBtn.addClass("btn btn-primary");
+                deleteBtn.attr("type", "button");
+                deleteBtn.attr("id", "delete-news-btn");
+                deleteBtn.attr("data-id", myNews._id);
+                deleteBtn.text("Delete");
+                newsDiv.append(deleteBtn);
+
+                $(".my-articles").append(newsDiv);
+            }
+        }
+    });
+}
+//Function call
+populateNews();
+
+//On Click function to delete articles that have been saved via comment
+$(document).on("click", "#delete-news-btn", function() {
+
+    let id = $(this).attr("data-id");
+
+    $.ajax({
+        method: "DELETE",
+        url: "/delete/" + id
+    }).then(function(data) {
+        populateNews();
+    });
+})
 
