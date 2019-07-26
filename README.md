@@ -24,4 +24,22 @@ If the user wishes to comment on an article, they simply have to click comment. 
 
 If the user wishes to delete a commented article field, they simply have to visit the *Your Articles* section and click delete. The corresponding information will then be removed from the database.
 
-![delete-article]()
+![delete-article](https://github.com/jvalentine1/news-scrape/blob/master/images/n-s-delete-gif.gif)
+
+## Future Development
+
+Features to be added in the future will include but are not limited to:
+        * User Authentication
+        * A window where the user can view comments left by other members
+        * Conditional database entries to avoid multiple identicle entries
+
+## Setting Up Your Machine
+
+In order to test news-scrape on your local machine the following npm packages must be installed in the command line:
+
+        * npm i express
+        * npm i express-handlebars
+        * npm i mongoose
+        * npm i axios
+        * npm i path
+        * npm i cheerio
