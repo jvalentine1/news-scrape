@@ -1,4 +1,14 @@
+//On Load Function that checks the database for saved articles
+function articleRender() {
+    $.getJSON("/news", function(data) {
+        if(data.length > 1) {
+        $("#scrape-btn").html("");
+        generateNews(data);
+        }
+    });
+}
 
+articleRender();
 //Handles ajax call for usa today news scrape
 $(document).on("click", "#news-scrape", function() {
     $.get("/scrape", function(data) {
@@ -136,7 +146,10 @@ $(document).on("click", "#comment-submit", function(e) {
     let divId = $(this).parent("div").attr("id");
     let id = $(this).attr("data-id");
     let comment = $("#body-input").val();
-
+    if (comment === "") {
+        alert("Must Enter A Comment");
+    }
+    else {
     $.ajax({
         method: "POST",
         url: "/news/" + id,
@@ -146,7 +159,6 @@ $(document).on("click", "#comment-submit", function(e) {
 
         }
     }).then(function(data) {
-          console.log(data);
 
         $("#body-input").detach();
         $("#comment-submit").detach();
@@ -154,7 +166,9 @@ $(document).on("click", "#comment-submit", function(e) {
         $("#br").detach();
         $("#" + divId).append("<button type='button' class='btn btn-primary' id='comment-news' data-id=" + id + ">Comment</button");
     });
+    }
 });
+
 
 //Cancels the request to comment on an article
 $(document).on("click", ".cancel-comment", function() {
@@ -203,8 +217,9 @@ function populateNews() {
                 newsLink.html("https://www.usatoday.com/" + myNews.link);
                 newsDiv.append(newsLink);
 
-                let commentTitle = $("<h1>");
+                let commentTitle = $("<h2>");
                 commentTitle.text("Comments:");
+                commentTitle.addClass("comment pt-2")
                 newsDiv.append(commentTitle);
 
                 let commentWrap = $("<ul>");

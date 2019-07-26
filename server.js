@@ -44,7 +44,7 @@ app.get("/scrape", function(req, res) {
     $("div.gnt_se_tw").each(function(i, element) {
     
         var result = {};
-        if (i < 5) {
+        if (i < 10) {
 
             var title = $(element).children("div").text();
             var summary = $(element).children("div").attr("data-c-desc");

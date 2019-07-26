@@ -93,12 +93,12 @@
 
 .news-title {
     font-size: 30px;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'Ubuntu Mono', monospace;
 }
 
 .news-summary {
     font-size: 15px;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'Ubuntu Mono', monospace;
 }
 
 /* === anime.js css ===*/
@@ -136,4 +136,15 @@
   /* Article Manipulation */
   #body-input {
       width:80%;
+  }
+
+  .article-title {
+      font-family: 'Ubuntu Mono', monospace;
+      text-decoration: underline;
+  }
+
+  .comment {
+    font-family: 'Ubuntu Mono', monospace;
+    text-decoration: underline;
+    font-size:25px;
   }
